@@ -139,8 +139,7 @@ export default function App() {
       <Text style={{ fontSize: 40 }}>To Do List</Text>
       <TextInput
         style={{ borderBottomWidth: 1, padding: 10, margin: 10 }}
-        pl
-        aceholder=" Enter Text Here "
+        placeholder=" Enter Text Here "
         value={item}
         onChangeText={setItem}></TextInput>
       <View style={{ flexDirection: 'row' }}>
