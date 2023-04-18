@@ -1,4 +1,4 @@
-# Lab 07 useEffect, Image and FlatList
+# Lab 07: useEffect, Image and FlatList
 ## Lab Task 1: Discount Calculator App
 ```
 // Lab 07: useEffect, Image and FlatList
