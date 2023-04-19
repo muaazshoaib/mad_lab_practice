@@ -183,12 +183,17 @@ export default function App() {
   const [students, setStudents] = useState([]);
   const [name, setName] = useState('');
   const [gpa, setGpa] = useState('');
+  const [semester, setSemester] = useState('');
 
   const addStudent = () => {
     if (name && gpa) {
-      setStudents([...students, { name, gpa }]);
+      setStudents([
+        ...students,
+        { id: Math.random(), name: name, gpa: gpa, semester: semester },
+      ]);
       setName('');
       setGpa('');
+      setSemester('');
     }
   };
 
@@ -208,10 +213,19 @@ export default function App() {
     setStudents(sortedStudents);
   };
 
+  const handleDelete = (item) => {
+    setStudents((list) => list.filter((x) => x.id !== item.id));
+  };
+
   const renderItem = ({ item }) => (
     <View style={styles.item}>
       <Text style={styles.name}>{item.name}</Text>
+      <Text style={styles.gpa}>{item.semester}</Text>
       <Text style={styles.gpa}>{item.gpa}</Text>
+      <TouchableOpacity onPress={() => handleDelete(item)}>
+        {' '}
+        <Text>x</Text>
+      </TouchableOpacity>
     </View>
   );
 
@@ -219,13 +233,19 @@ export default function App() {
     <View style={styles.container}>
       <TextInput
         style={styles.input}
-        placeholder="Student Name"
+        placeholder="Name"
         value={name}
         onChangeText={setName}
       />
       <TextInput
         style={styles.input}
-        placeholder="GPA"
+        placeholder="Class"
+        value={semester}
+        onChangeText={setSemester}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="CGPA"
         value={gpa}
         onChangeText={setGpa}
         keyboardType="numeric"
@@ -269,6 +289,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   item: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     backgroundColor: '#eee',
     padding: 10,
     borderRadius: 4,
