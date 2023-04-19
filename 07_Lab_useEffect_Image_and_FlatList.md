@@ -167,6 +167,122 @@ const styles = StyleSheet.create({
   },
 });
 ```
+## Lab Task 2: Design and develop the below application for maintaining the student records. The screens shows the addition, searching and deletion of any student record.
+```
+import React, { useState } from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+  FlatList,
+} from 'react-native';
+
+export default function App() {
+  const [students, setStudents] = useState([]);
+  const [name, setName] = useState('');
+  const [gpa, setGpa] = useState('');
+
+  const addStudent = () => {
+    if (name && gpa) {
+      setStudents([...students, { name, gpa }]);
+      setName('');
+      setGpa('');
+    }
+  };
+
+  const searchStudent = () => {
+    if (name) {
+      const filteredStudents = students.filter((student) =>
+        student.name.toLowerCase().includes(name.toLowerCase())
+      );
+      setStudents(filteredStudents);
+      setName('');
+      setGpa('');
+    }
+  };
+
+  const sortStudents = () => {
+    const sortedStudents = [...students].sort((a, b) => b.gpa - a.gpa);
+    setStudents(sortedStudents);
+  };
+
+  const renderItem = ({ item }) => (
+    <View style={styles.item}>
+      <Text style={styles.name}>{item.name}</Text>
+      <Text style={styles.gpa}>{item.gpa}</Text>
+    </View>
+  );
+
+  return (
+    <View style={styles.container}>
+      <TextInput
+        style={styles.input}
+        placeholder="Student Name"
+        value={name}
+        onChangeText={setName}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="GPA"
+        value={gpa}
+        onChangeText={setGpa}
+        keyboardType="numeric"
+      />
+      <TouchableOpacity style={styles.button} onPress={addStudent}>
+        <Text>Add</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={searchStudent}>
+        <Text>Search</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={sortStudents}>
+        <Text>Sort</Text>
+      </TouchableOpacity>
+      <FlatList
+        data={students}
+        renderItem={renderItem}
+        keyExtractor={(item, index) => index.toString()}
+      />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#fff',
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 4,
+    padding: 10,
+    marginBottom: 10,
+  },
+  button: {
+    backgroundColor: '#eee',
+    padding: 10,
+    borderRadius: 4,
+    marginBottom: 10,
+    alignItems: 'center',
+  },
+  item: {
+    backgroundColor: '#eee',
+    padding: 10,
+    borderRadius: 4,
+    marginBottom: 10,
+  },
+  name: {
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  gpa: {
+    fontStyle: 'italic',
+  },
+});
+```
 ## Activity 1: A simple example of useEffect, where a name of a person is changed after a certain condition using Hooks.
 ```
 // Lab 07: useEffect, Image and FlatList
